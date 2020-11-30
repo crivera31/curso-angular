@@ -1,1 +1,18 @@
-<p>grafica1 works!</p>
+<div class="row">
+  <div class="col-6">
+    <!-- recibiremos el title en grafica-circulo -->
+    <app-grafica-circulo title="Ventas" [car]="cars"></app-grafica-circulo>
+  </div>
+  <div class="col-6">
+    <!-- en el hijo recibo como labels -->
+    <app-grafica-circulo title="Compras" [car]="cars" [data]="data1" [labels]="labels1"></app-grafica-circulo>
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <app-grafica-circulo title="Ingresos" [car]="cars"></app-grafica-circulo>
+  </div>
+  <div class="col-6">
+    <app-grafica-circulo title="Pedidos" [car]="cars"></app-grafica-circulo>
+  </div>
+</div>
