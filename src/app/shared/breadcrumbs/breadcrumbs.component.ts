@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+// import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 @Component({
@@ -10,7 +10,7 @@ import { filter, map } from 'rxjs/operators';
 })
 export class BreadcrumbsComponent implements OnInit {
   public titulo: string;
-  public tituloSubs$:  Subscription;
+  // public tituloSubs$:  Subscription;
 
   constructor(private router: Router) {
     /**video 85 */
