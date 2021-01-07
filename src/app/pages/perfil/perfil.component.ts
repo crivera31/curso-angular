@@ -15,6 +15,7 @@ export class PerfilComponent implements OnInit {
   public perfilForm: FormGroup;
   public usuario:Usuario;
   public subirFoto: File;
+  public imgTemp: any = '';
 
   constructor(private fb: FormBuilder, private fileUploadService: FileUploadService ,private usuarioService: UsuarioService, private baseService: BaseService) {
     this.usuario = this.usuarioService.usuario;
@@ -46,13 +47,29 @@ export class PerfilComponent implements OnInit {
   }
   cambiarFoto(file: File) {
     this.subirFoto = file;
+    if (!file) { return; }
+    const reader = new FileReader();
+    const url64 = reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      this.imgTemp = reader.result;
+    }
+
   }
   onSubirFoto() {
     this.fileUploadService.actualizarFoto(this.subirFoto,'usuarios',this.usuario.uid).then(
       res => {
         console.log(res);
-        this.usuario.foto = res.nombreArchivo;
-        this.baseService.msgSuccess(res.msg);
+        // this.usuario.foto = res;
+        if (res.ok) {
+          this.usuario.foto = res.nombreArchivo; /**mi forma */
+          this.baseService.msgSuccess(res.msg);
+        } else {
+          this.baseService.msgError(res.msg);
+        }
+      },
+      err => {
+        console.log(err);
       }
     );
   }

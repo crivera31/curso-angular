@@ -23,10 +23,14 @@ export class FileUploadService {
         body: formData
       });
       const data = await resp.json();
-      console.log(data);
-
+      // if(data.ok) {
+      //   return data.nombreArchivo;
+      // } else {
+      //   console.log(data);
+      //   return false;
+      // }
       return data;
-
+      
     } catch (error) {
       console.log(error);
       return false;
