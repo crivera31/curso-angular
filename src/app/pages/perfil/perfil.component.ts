@@ -42,6 +42,10 @@ export class PerfilComponent implements OnInit {
         this.usuario.nombre = nombre;
         this.usuario.email = email;
         this.baseService.msgSuccess(res.msg);
+      },
+      err => {
+        // console.log(err);
+        this.baseService.msgError(err.error.msg);
       }
     )
   }
@@ -67,11 +71,9 @@ export class PerfilComponent implements OnInit {
         } else {
           this.baseService.msgError(res.msg);
         }
-      },
-      err => {
+      }).catch( err => {
         console.log(err);
-      }
-    );
+      });
   }
 
 }

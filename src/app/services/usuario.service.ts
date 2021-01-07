@@ -44,7 +44,7 @@ export class UsuarioService {
     }).pipe(
       /**renovamos token en localstorage */
       map( (res: any) => {
-        console.log(res);
+        // console.log(res);
         const { enabled, role, google, nombre, email, foto = '', uid } = res.usuario;
         this.usuario = new Usuario(nombre, email, '', foto, google, role, uid);
         // console.log('res del TAP => ' +JSON.stringify(res));

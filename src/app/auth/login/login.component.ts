@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.usuario.password = this.loginForm.get('password').value;    
     this.usuarioService.login(this.usuario).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         /**redirigir a dashboard */
         this.router.navigateByUrl('/');
         this.baseService.msgSuccess(res.msg);
