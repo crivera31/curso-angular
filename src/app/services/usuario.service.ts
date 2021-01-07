@@ -8,12 +8,14 @@ import { Router } from '@angular/router';
 
 declare const gapi: any;
 const base_url = environment.base_url;
-const cabecera_json = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
+// const cabecera_json = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
+  private HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  public usuario: Usuario;
   public auth2: any;
   
   constructor(private http: HttpClient,
@@ -21,25 +23,35 @@ export class UsuarioService {
     private ngZone: NgZone) {
     this.googleInit();
   }
+
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
+  get uid(): string {
+    return this.usuario.uid || '';
+  }
   /**
    * @returns Observable
    * para renovar token 
    */
   validarToken(): Observable<boolean> {
-    const token = localStorage.getItem('token') || '';
     const httpHeaders = new HttpHeaders({
-      'x-token': token
+      'x-token': this.token
     });
     return this.http.get(`${base_url}/login/renew`,
     {
       headers: httpHeaders
     }).pipe(
       /**renovamos token en localstorage */
-      tap( (res: any) => {
+      map( (res: any) => {
+        console.log(res);
+        const { enabled, role, google, nombre, email, foto = '', uid } = res.usuario;
+        this.usuario = new Usuario(nombre, email, '', foto, google, role, uid);
         // console.log('res del TAP => ' +JSON.stringify(res));
         localStorage.setItem('token',res.token);
+        return true;
       }),
-      map( res => true),
+      // map( res => true),
       catchError( error => of(false)) /**devuelve false porque no logro hacer autenticacion */
     );
   }
@@ -48,18 +60,37 @@ export class UsuarioService {
    * @returns Observable
    */
   crearUsuario(usuario: Usuario): Observable<any> {
-    return this.http.post<any>(`${base_url}/usuarios`,usuario,cabecera_json).pipe(
+    return this.http.post<any>(`${base_url}/usuarios`,usuario,{ headers: this.HttpHeaders }).pipe(
       tap(res => {
         localStorage.setItem('token',res.token);
       })
     );
   }
   /**
+   * @param  {{email:string} data
+   * @param  {string} nombre
+   * @param  {string}} role
+   * @returns Observable
+   */
+  actualizarUsuario(data: { email: string, nombre: string, role: string }): Observable<any> {
+    data = {
+      ...data,
+      role: this.usuario.role
+    }
+    const httpHeaders = new HttpHeaders({
+      'x-token': this.token,
+      'Content-Type': 'application/json'
+    });
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
+      headers: httpHeaders
+    })
+  }
+  /**
    * @param  {Usuario} usuario
    * @returns Observable
    */
   login(usuario: Usuario): Observable<any> {
-    return this.http.post<any>(`${base_url}/login`,usuario,cabecera_json).pipe(
+    return this.http.post<any>(`${base_url}/login`,usuario,{ headers: this.HttpHeaders }).pipe(
       tap(res => {
         localStorage.setItem('token',res.token);
       })
@@ -73,7 +104,7 @@ export class UsuarioService {
     let body = {
       'token': token
     }
-    return this.http.post<any>(`${base_url}/login/google`, body, cabecera_json).pipe(
+    return this.http.post<any>(`${base_url}/login/google`, body, { headers: this.HttpHeaders }).pipe(
       tap(res => {
         localStorage.setItem('token',res.token);
       })
@@ -99,7 +130,7 @@ export class UsuarioService {
     localStorage.removeItem('token');
     this.auth2.signOut().then( () => {
       this.ngZone.run(() => {
-        console.log('Login google: User signed out.');
+        console.log('Login: User signed out.');
         this.router.navigateByUrl('/login');
       });
     });

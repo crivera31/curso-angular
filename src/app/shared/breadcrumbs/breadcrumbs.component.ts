@@ -15,7 +15,7 @@ export class BreadcrumbsComponent implements OnInit {
   constructor(private router: Router) {
     /**video 85 */
     this.getArgumentoRuta().subscribe(data => {
-      console.log(data)
+      // console.log(data);
       this.titulo = data.titulo;
       document.title = `Admin Pro - ${data.titulo}`;
     });

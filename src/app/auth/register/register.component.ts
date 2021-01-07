@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
   });
 
   constructor(private fb: FormBuilder,private baseService: BaseService, private usuarioService: UsuarioService, private router: Router) {
-    this.usuario = new Usuario();
+    this.usuario = new Usuario('','','');
   }
 
   ngOnInit(): void {

@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     password: ['', [Validators.required]],
   });
   constructor(private router: Router, private fb: FormBuilder, private usuarioService: UsuarioService, private baseService: BaseService, private ngZone: NgZone) {
-    this.usuario = new Usuario();
+    this.usuario = new Usuario('','','');
   }
 
   ngOnInit(): void {
