@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from '../../model/usuario';
 import { UsuarioService } from '../../services/usuario.service';
 import { BaseService } from '../../services/base.service';
@@ -18,16 +18,17 @@ export class RegisterComponent implements OnInit {
   // public isValidPass: boolean;
   // public formSubmitted: boolean;
 
-  public registerForm = this.fb.group({
-    nombre: ['', [Validators.required, Validators.minLength(3)]],
-    email: ['', [Validators.required, Validators.pattern(this.isValidEmail)]],
-    password: ['', [Validators.required]],
-    password2: ['', [Validators.required]],
-    terminos: ['']
-  });
+  public registerForm: FormGroup;
 
   constructor(private fb: FormBuilder,private baseService: BaseService, private usuarioService: UsuarioService, private router: Router) {
     this.usuario = new Usuario('','','');
+    this.registerForm = this.fb.group({
+      nombre: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.pattern(this.isValidEmail)]],
+      password: ['', [Validators.required]],
+      password2: ['', [Validators.required]],
+      terminos: ['']
+    });
   }
 
   ngOnInit(): void {
@@ -37,7 +38,7 @@ export class RegisterComponent implements OnInit {
     return ((this.registerForm.get(field).touched || this.registerForm.get(field).dirty) && !this.registerForm.get(field).valid);
   }
 
-  onCrearUsuario():void {
+  crearUsuario() {
     this.usuario.nombre = (this.registerForm.get('nombre').value).trim();
     this.usuario.email = this.registerForm.get('email').value;
     this.usuario.password = this.registerForm.get('password').value;

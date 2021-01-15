@@ -1,0 +1,28 @@
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="baseService.ocultarModal">
+  <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Cargar imagen</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="cerrarModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <h3>Seleccione una imagen</h3>
+                <!-- <div class="col-lg-3 col-md-6"> -->
+                    <div class="card">
+                        <div class="text-center">
+                            <img class="card-img-top img-responsive img-avatar" [src]="baseService.foto" *ngIf="!imgTemp">
+                            <img class="card-img-top img-responsive img-avatar" [src]="imgTemp" *ngIf="imgTemp">
+                        </div>
+                    </div>
+                <!-- </div> -->
+                <input type="file" (change)="cambiarFoto($event.target.files[0])">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect waves-light" (click)="subirAvatar()">Guardar cambios</button>
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" (click)="cerrarModal()">Close</button>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="row animated fadeIn fast">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <form class="form-material">
+          <div class="form-group">
+            <!-- <label>Default Text <span class="help"> e.g. "George deo"</span></label> -->
+            <input type="text" class="form-control form-control-line" placeholder="Buscar usuario por nombre..." (keyup)="onKey(txtTermino.value)" (keyup.enter)="buscarUsuario(txtTermino.value)" #txtTermino>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="cargando">
+  <div class="col-12">
+    <div class="alert alert-info">
+      <div class="text-center">
+        <h4 class="alert-heading">Cargando</h4>
+        <i class="fa fa-spin fa-refresh fa-2x"></i>
+        <p class="mb-0"> Por favor espere</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Total de usuarios ({{totalUsuarios}})</h4>
+        <h6 class="card-subtitle">Usuarios registrados en mi aplicación.</h6>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="w100">Avatar</th>
+                <th>Correo</th>
+                <th>Nombre</th>
+                <th class="w100">Enabled</th>
+                <th class="w140">Role</th>
+                <th class="w100">Auth</th>
+                <th class="text-nowrap w100">Acciones</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="lstUsuarios.length > 0">
+              <tr *ngFor="let usuario of lstUsuarios">
+                <td style="width:40px">
+                  <img (click)="abrirModal(usuario)" [src]="usuario.FotoUrl" width="50" class="img-circle cursor" alt="Avatar de usuario">
+                </td>
+                <td>{{usuario.email}}</td>
+                <td>{{usuario.nombre}}</td>
+                <td>
+                  <span *ngIf="usuario.enabled === '1'" class="label label-success">Activo</span>
+                  <span *ngIf="usuario.enabled === '0'" class="label label-secondary">Inactivo</span>
+                </td>
+                <td>
+                  <select class="form-control" [(ngModel)]="usuario.role" (change)="cambiarRole(usuario)">
+                    <option value="ADMIN_ROLE">Admin</option>
+                    <option value="USER_ROLE">User</option>
+                  </select>
+                </td>
+                <td>
+                  <span *ngIf="usuario.google" class="label label-danger">Google</span>
+                  <span *ngIf="!usuario.google" class="label label-info">Email</span>
+                </td>
+                <td class="text-nowrap">
+                  <div class="text-center">
+                    <a href="#" data-toggle="tooltip" data-original-title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i></a>
+                    <a (click)="eliminarUsuario(usuario)" class="cursor" data-toggle="tooltip" data-original-title="Borrar"> <i class="fa fa-close text-danger"></i></a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="lstUsuarios.length == 0">
+              <tr>
+                <td colspan=6 class="text-center">No matching records found.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button [disabled]="desde < 5" (click)="cambiarPagina(-5)" class="btn btn-secondary">Anteriores</button>
+        &nbsp;
+        <button [disabled]="desde + 5 >= totalUsuarios" (click)="cambiarPagina(5)" class="btn btn-secondary">Siguientes</button>
+        <div class=text-right *ngIf="encontrados">
+          Se encontraron {{totalEncontrados}} registros.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

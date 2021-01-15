@@ -5,7 +5,7 @@
                 <h4 class="card-title">Mi perfil de usuario</h4>
                 <h6 class="card-subtitle">Ajustes</h6>
                 <form class="form p-t-20" id="perfilform" autocomplete="off" [formGroup]="perfilForm"
-                    (ngSubmit)="onActualizarPerfil()">
+                    (ngSubmit)="actualizarPerfil()">
                     <div class="form-group">
                         <label class="control-label">Nombre</label>
                         <input type="text" id="nombre" class="form-control"
@@ -59,7 +59,7 @@
                 <input type="file" (change)="cambiarFoto($event.target.files[0])">
                 <br>
                 <br>
-                <button type="button" class="btn btn-inverse btn-block waves-effect waves-light" [disabled]="!subirFoto" (click)="onSubirFoto()">
+                <button type="button" class="btn btn-inverse btn-block waves-effect waves-light" [disabled]="!subirFoto" (click)="subirAvatar()">
                     <i class="fa fa-save"></i>
                     Cambiar foto
                 </button>

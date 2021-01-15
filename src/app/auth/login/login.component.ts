@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/model/usuario';
 import { BaseService } from 'src/app/services/base.service';
@@ -17,12 +17,13 @@ export class LoginComponent implements OnInit {
   public usuario: Usuario;
   public auth2: any;
 
-  public loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.pattern(this.isValidEmail)]],
-    password: ['', [Validators.required]],
-  });
+  public loginForm: FormGroup;
   constructor(private router: Router, private fb: FormBuilder, private usuarioService: UsuarioService, private baseService: BaseService, private ngZone: NgZone) {
     this.usuario = new Usuario('','','');
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.pattern(this.isValidEmail)]],
+      password: ['', [Validators.required]],
+    });
   }
 
   ngOnInit(): void {
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
     return ((this.loginForm.get(field).touched || this.loginForm.get(field).dirty) && !this.loginForm.get(field).valid);
   }
 
-  login():void {
+  login() {
     this.usuario.email = this.loginForm.get('email').value;
     this.usuario.password = this.loginForm.get('password').value;    
     this.usuarioService.login(this.usuario).subscribe(

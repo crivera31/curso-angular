@@ -5,17 +5,20 @@ import { ChartsModule } from 'ng2-charts';
 
 import { IncrementadorComponent } from './incrementador/incrementador.component';
 import { GraficaCirculoComponent } from './grafica-circulo/grafica-circulo.component';
+import { ModalImagenComponent } from './modal-imagen/modal-imagen.component';
 
 
 
 @NgModule({
   declarations: [
     IncrementadorComponent,
-    GraficaCirculoComponent
+    GraficaCirculoComponent,
+    ModalImagenComponent
   ],
   exports: [
     IncrementadorComponent,
-    GraficaCirculoComponent
+    GraficaCirculoComponent,
+    ModalImagenComponent
   ],
   imports: [
     CommonModule,
