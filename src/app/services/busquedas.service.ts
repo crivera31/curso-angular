@@ -4,6 +4,8 @@ import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Usuario } from '../model/usuario';
+import { Hospital } from '../model/hospital';
+import { Medico } from '../model/medico';
 
 const base_url = environment.base_url;
 @Injectable({
@@ -23,10 +25,16 @@ export class BusquedasService {
       }
     };
   }
-  private transformarData(resultados: any[]): Usuario[] {
+  private transformarUsuarios(resultados: any[]): Usuario[] {
     return resultados.map(
       user => new Usuario(user.nombre,user.email,'',user.enabled,user.foto,user.google,user.role,user.uid)
     );
+  }
+  private transformarMedicos(resultados: any[]): Medico[] {
+    return resultados;
+  }
+  private transformarHospitales(resultados: any[]): Hospital[] {
+    return resultados;
   }
   buscarUsuario(tipo: 'usuarios'|'medicos'|'hospitales', termino: string): Observable<any[]> {
     const url = `${base_url}/todo/coleccion/${tipo}/${termino}`;
@@ -35,7 +43,11 @@ export class BusquedasService {
         console.log(res)
         switch(tipo) {
           case 'usuarios':
-            return this.transformarData(res.resultados)
+            return this.transformarUsuarios(res.resultados);
+          case 'medicos':
+            return this.transformarMedicos(res.resultados);
+          case 'hospitales':
+            return this.transformarHospitales(res.resultados);
           default:
             return[];
         }

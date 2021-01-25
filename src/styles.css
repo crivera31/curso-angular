@@ -18,6 +18,10 @@
   height: 150px;
   width: 150px;
 }
+.img-avatar-editar {
+  height: 150px;
+  /* width: 150px; */
+}
 .w100 {
   width: 100px;
 }
@@ -27,6 +31,10 @@
 .avatar {
   width: 50px;
   border-radius: 100%;
+}
+.avatar-hospital {
+  width: 60px;
+  /* border-radius: 100%; */
 }
 .oculto {
   display: none;

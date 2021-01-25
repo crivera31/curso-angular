@@ -19,7 +19,7 @@ export class UsuariosComponent implements OnInit,OnDestroy {
   public desde: number;
   public cargando: boolean;
   public encontrados: boolean;
-  public imgSubs: Subscription;
+  private imgSubs: Subscription;
 
   constructor(private usuarioService: UsuarioService, private busquedaService: BusquedasService, private baseService: BaseService) {
     this.totalUsuarios = 0;

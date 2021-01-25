@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from '../../model/usuario';
 import { UsuarioService } from '../../services/usuario.service';
 import { BaseService } from '../../services/base.service';
-import { isEmpty } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 
