@@ -27,6 +27,12 @@ export class UsuarioService {
   get uid(): string {
     return this.usuario.uid || '';
   }
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
+    return this.usuario.role;
+  }
+  guardarLocalStorage(token: string) {
+    localStorage.setItem('token',token);
+  }
   get cab_json() {
     return {
       headers: {
@@ -61,7 +67,7 @@ export class UsuarioService {
         const { enabled, role, google, nombre, email, foto = '', uid } = res.usuario;
         this.usuario = new Usuario(nombre, email, '',enabled, foto, google, role, uid);
         // console.log('res del TAP => ' +JSON.stringify(res));
-        localStorage.setItem('token',res.token);
+        this.guardarLocalStorage(res.token);
         return true;
       }),
       // map( res => true),
@@ -75,7 +81,7 @@ export class UsuarioService {
   crearUsuario(usuario: Usuario): Observable<any> {
     return this.http.post<any>(`${base_url}/usuarios`,usuario,this.cab_json).pipe( /**solo envia el body y content type json*/
       tap(res => {
-        localStorage.setItem('token',res.token);
+        this.guardarLocalStorage(res.token);
       })
     );
   }
@@ -99,7 +105,7 @@ export class UsuarioService {
   login(usuario: Usuario): Observable<any> {
     return this.http.post<any>(`${base_url}/login`,usuario,this.cab_json).pipe( /**solo envia body y content type json */
       tap(res => {
-        localStorage.setItem('token',res.token);
+        this.guardarLocalStorage(res.token);
       })
     );
   }
@@ -113,7 +119,7 @@ export class UsuarioService {
     }
     return this.http.post<any>(`${base_url}/login/google`, body, this.cab_json).pipe( /**solo envia body y content type json */
       tap(res => {
-        localStorage.setItem('token',res.token);
+        this.guardarLocalStorage(res.token);
       })
     );
   }

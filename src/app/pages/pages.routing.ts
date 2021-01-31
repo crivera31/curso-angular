@@ -1,4 +1,4 @@
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -14,6 +14,9 @@ import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.comp
 
 import { AuthGuard } from '../guards/auth.guard';
 import { EditarComponent } from './mantenimientos/medicos/editar/editar.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
+import { AdminGuard } from '../guards/admin.guard';
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -27,12 +30,16 @@ const routes: Routes = [
       { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas'} },
       { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs'} },
       { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario'} },
+      { path: 'buscar/:termino', component: BusquedaComponent, data: { titulo: 'Busquedas'} },
       // { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
       // MANTENIMIENTOS
-      { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimientos de usuarios'} },
+      { path: 'usuarios', canActivate: [ AdminGuard ], component: UsuariosComponent, data: { titulo: 'Mantenimientos de usuarios'} },
       { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Mantenimientos de hospitales'} },
       { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimientos de médicos'} },
       { path: 'medico/:id', component: EditarComponent, data: { titulo: 'Mantenimientos de médicos'} },
+
+
+      { path: 'not-authorized', component: NotAuthorizedComponent, data: { titulo: 'not authorized'} },
     ]
   }
 ];

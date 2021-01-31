@@ -20,6 +20,8 @@ import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.comp
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { EditarComponent } from './mantenimientos/medicos/editar/editar.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { EditarComponent } from './mantenimientos/medicos/editar/editar.componen
     UsuariosComponent,
     HospitalesComponent,
     MedicosComponent,
-    EditarComponent
+    EditarComponent,
+    BusquedaComponent,
+    NotAuthorizedComponent
   ],
   exports: [
     DashboardComponent,

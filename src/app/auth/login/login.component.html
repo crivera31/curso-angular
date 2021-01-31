@@ -12,10 +12,10 @@
             <input class="form-control" type="text" required="" placeholder="Username" [ngClass]="{ 'is-invalid': isValidField('email') }" formControlName="email">
             <div class="invalid-feedback">
               <span *ngIf="loginForm.get('email').errors?.required">
-                  * Ponga su email
+                  * Ponga su email.
               </span>
               <span *ngIf="loginForm.get('email').errors?.pattern">
-                  * Formato inválido.
+                  * El correo debe ser formato válido y real.
               </span>
           </div>
           </div>
@@ -36,8 +36,8 @@
               <!-- <input id="checkbox-signup" type="checkbox" class="filled-in chk-col-light-blue"> -->
               <!-- <label for="checkbox-signup"> Remember me </label> -->
             </div>
-            <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i>
-              Forgot pwd?</a>
+            <!-- <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i>
+              Forgot pwd?</a> -->
           </div>
         </div>
         <div class="form-group text-center m-t-20">

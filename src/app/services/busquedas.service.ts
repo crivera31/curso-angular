@@ -52,6 +52,10 @@ export class BusquedasService {
             return[];
         }
       })
-    )
+    );
+  }
+  busquedaGlobal(termino: string): Observable<any> {
+    const url = `${base_url}/todo/${termino}`;
+    return this.http.get(url,this.cab_x_token);
   }
 }
