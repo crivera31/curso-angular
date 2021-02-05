@@ -54,11 +54,11 @@ export class HospitalesComponent implements OnInit,OnDestroy {
   guardarCambios(hospital: Hospital) {
     this.hospitalService.actualizarHospital(hospital).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         this.baseService.msgSuccess(res.msg);
       },
       err => {
-        console.log(err);
+        // console.log(err);
         this.baseService.msgError(err.error.msg);
       }
     )
@@ -75,12 +75,12 @@ export class HospitalesComponent implements OnInit,OnDestroy {
       if (result.isConfirmed) {
         this.hospitalService.borrarHospital(hospital).subscribe(
           res => {
-            console.log(res);
+            // console.log(res);
             this.cargarHospitales();
             // this.baseService.msgSuccess(res.msg);
           },
           err => {
-            console.log(err);
+            // console.log(err);
             // this.baseService.msgError(err.error.msg);
           }
         );
@@ -120,7 +120,7 @@ export class HospitalesComponent implements OnInit,OnDestroy {
       this.busquedaService.buscarUsuario('hospitales',termino).subscribe(
         res => {
           this.encontrados = true;
-          console.log(res)
+          // console.log(res);
           this.totalEncontrados = res.length
           this.lstHospitales = res
         }

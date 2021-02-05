@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         this.baseService.msgSuccess(res.msg);
       },
       err => {
-        console.log(err);
+        // console.log(err);
         this.baseService.msgError(err.error.msg);
       }
     );

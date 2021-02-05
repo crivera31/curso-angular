@@ -56,7 +56,7 @@ export class EditarComponent implements OnInit {
       )
       .subscribe(
       medico => {
-        console.log(medico);
+        // console.log(medico);
         if(!medico) {
           return this.router.navigateByUrl(`/dashboard/medicos`);
         }
@@ -72,7 +72,7 @@ export class EditarComponent implements OnInit {
         this.lstHospitales = res
       },
       err => {
-        console.log(err);
+        // console.log(err);
       }
     )
   }
@@ -86,19 +86,19 @@ export class EditarComponent implements OnInit {
       }
       this.medicoService.actualizarMedico(data).subscribe(
         res => {
-          console.log(res);
+          // console.log(res);
         }
       )
     } else {
       /**guardar */
       this.medicoService.crearMedico(this.medicoForm.value).subscribe(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.baseService.msgSuccess(res.msg);
           this.router.navigateByUrl(`/dashboard/medico/${res.medico._id}`)
         },
         err => {
-          console.log(err);
+          // console.log(err);
         }
       );
     }

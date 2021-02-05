@@ -56,13 +56,13 @@ export class RegisterComponent implements OnInit {
     }
     this.usuarioService.crearUsuario(this.usuario).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         this.baseService.msgSuccess(res.msg)
         /**redirigir a dashboard */
         this.router.navigateByUrl('/');
       },
       err => {
-        console.warn(err);
+        // console.warn(err);
         this.baseService.msgError(err.error.msg);
       }
     )

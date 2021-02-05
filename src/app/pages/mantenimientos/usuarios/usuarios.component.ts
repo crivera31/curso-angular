@@ -70,7 +70,7 @@ export class UsuariosComponent implements OnInit,OnDestroy {
       this.busquedaService.buscarUsuario('usuarios',termino).subscribe(
         res => {
           this.encontrados = true;
-          console.log(res)
+          // console.log(res)
           this.totalEncontrados = res.length
           this.lstUsuarios = res
         }

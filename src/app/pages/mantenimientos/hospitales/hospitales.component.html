@@ -51,7 +51,7 @@
                 <th class="text-nowrap w100">Acciones</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody *ngIf="lstHospitales.length > 0">
               <tr *ngFor="let hospital of lstHospitales">
                 <td style="width:40px">
                   <img [src]="hospital.foto | fotoHospital:'hospitales'" [alt]="hospital.nombre"
@@ -70,6 +70,11 @@
                     </a>
                   </div>
                 </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="lstHospitales.length == 0">
+              <tr>
+                <td colspan=3 class="text-center">No hay registros.</td>
               </tr>
             </tbody>
           </table>

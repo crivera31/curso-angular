@@ -36,7 +36,7 @@ export class PerfilComponent implements OnInit {
     // console.log(this.perfilForm.value);
     this.usuarioService.actualizarUsuario(this.perfilForm.value).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         const { nombre, email } = res.usuario;
         /**para actualizalo sin recargar 187 */
         this.usuario.nombre = nombre;
@@ -62,7 +62,7 @@ export class PerfilComponent implements OnInit {
   subirAvatar() {
     this.fileUploadService.actualizarFoto(this.subirFoto,'usuarios',this.usuario.uid).then(
       res => {
-        console.log(res);
+        // console.log(res);
         // this.usuario.foto = res;
         if (res.ok) {
           this.usuario.foto = res.nombreArchivo; /**mi forma */
@@ -71,7 +71,7 @@ export class PerfilComponent implements OnInit {
           this.baseService.msgError(res.msg);
         }
       }).catch( err => {
-        console.log(err);
+        // console.log(err);
       });
   }
 

@@ -43,7 +43,7 @@ export class MedicosComponent implements OnInit,OnDestroy {
     this.cargando = true;
     this.medicoService.cargarMedicos().subscribe(
       res => {
-        console.log(res)
+        // console.log(res);
         this.cargando = false;
         this.lstMedicos = res;
       }
@@ -65,7 +65,7 @@ export class MedicosComponent implements OnInit,OnDestroy {
       this.busquedaService.buscarUsuario('medicos',termino).subscribe(
         res => {
           this.encontrados = true;
-          console.log(res)
+          // console.log(res);
           this.totalEncontrados = res.length
           this.lstMedicos = res
         }

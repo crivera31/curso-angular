@@ -41,7 +41,7 @@ export class ModalImagenComponent implements OnInit {
     const tipo = this.baseService.tipo;
     this.fileUploadService.actualizarFoto(this.subirFoto,tipo,id).then(
       res => {
-        console.log(res);
+        // console.log(res);
         if (res.ok) {
           // this.usuario.foto = res.nombreArchivo; /**mi forma */
           // this.baseService.msgSuccess(res.msg);
@@ -52,7 +52,7 @@ export class ModalImagenComponent implements OnInit {
         //   this.baseService.msgError(res.msg);
         // }
       }).catch( err => {
-        console.log(err);
+        // console.log(err);
       });
   }
 
